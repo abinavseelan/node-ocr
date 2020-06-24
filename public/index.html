@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple Scribble</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link href='./styles.css' rel='stylesheet'>
+</head>
+<body>
+  <main>
+    <section class='controls-container'>
+      <span class='control' id='pencil-mode'>
+        <img src='./assets/edit-3.svg'>
+        Pencil Mode
+      </span>
+      
+      <span class='toggle'>
+        <input type='checkbox' id='toggle'>
+        <span class='key'></span>
+      </span>
+
+      <span class='control active' id='keyboard-mode'>
+        Keyboard Mode
+        <img src='./assets/command.svg'>
+      </span>
+    </section>
+  
+    <section class='search-container'>
+      <input class='search-box' type='text' placeholder='Search for something!' />
+      <canvas id='scribble-area'></canvas>
+    </section>
+  </main>
+
+  <script src='./index.js'></script>
+</body>
+</html>

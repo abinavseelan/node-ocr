@@ -1,0 +1,23 @@
+{
+  "name": "node-ocr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abinavseelan/node-ocr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abinavseelan/node-ocr/issues"
+  },
+  "homepage": "https://github.com/abinavseelan/node-ocr#readme",
+  "dependencies": {
+    "node-tesseract-ocr": "^2.0.0"
+  }
+}

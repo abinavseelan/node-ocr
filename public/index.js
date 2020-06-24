@@ -1,7 +1,14 @@
 const toggle = document.getElementById('toggle');
 const pencilMode = document.getElementById('pencil-mode');
 const keyboardMode = document.getElementById('keyboard-mode');
-const canvas = document.getElementById("scribble-area");
+const doneBtn = document.getElementById("done-btn");
+
+const canvas = document.querySelector("#scribble-area");
+const scribble = new Atrament(canvas, {
+  width: 800,
+  height: 300,
+  color: "#4D38B9",
+});
 
 
 toggle.addEventListener("change", (e) => {
@@ -9,11 +16,18 @@ toggle.addEventListener("change", (e) => {
     pencilMode.classList.add('active');
     keyboardMode.classList.remove("active");
 
-    canvas.classList.add('scribble-active');
+    canvas.classList.add("scribble-active");
+    doneBtn.classList.add('scribble-active');
   } else {
     keyboardMode.classList.add("active");
     pencilMode.classList.remove("active");
 
     canvas.classList.remove("scribble-active");
+    doneBtn.classList.remove("scribble-active");
   }
 });
+
+doneBtn.addEventListener('click', () => {
+  console.log(scribble.toImage());
+})
+

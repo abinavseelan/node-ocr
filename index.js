@@ -1,16 +1,22 @@
-const tesseract = require("node-tesseract-ocr");
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
 
-const config = {
-  lang: "eng",
-  oem: 1,
-  psm: 3,
-};
+const app = express();
+const port = 1337;
 
-tesseract
-  .recognize("image1.png", config)
-  .then((text) => {
-    console.log("Result:", text);
-  })
-  .catch((error) => {
-    console.log(error.message);
-  });
+app.use(bodyParser.json());
+
+app.use(express.static('public'));
+
+app.post('/api/search', (req, res) => {
+  const imageData = req.body.image;
+
+  fs.writeFileSync(`./images/${Date.now()}.png`, new Buffer(imageData, "base64"));
+
+  return res.sendStatus(201);
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+})

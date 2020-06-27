@@ -2,6 +2,7 @@ const toggle = document.getElementById("toggle");
 const pencilMode = document.getElementById("pencil-mode");
 const keyboardMode = document.getElementById("keyboard-mode");
 const doneBtn = document.getElementById("done-btn");
+const searchInput = document.getElementById("search");
 
 const canvas = document.querySelector("#scribble-area");
 const scribble = new Atrament(canvas, {
@@ -29,7 +30,7 @@ toggle.addEventListener("change", (e) => {
 doneBtn.addEventListener("click", async () => {
   const imageData = scribble.toImage();
 
-  await fetch("/api/search", {
+  const response = await fetch("/api/search", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -38,4 +39,10 @@ doneBtn.addEventListener("click", async () => {
       image: imageData.split(",")[1],
     }),
   });
+
+  const data = await response.json();
+
+  searchInput.value = data.responses[0].fullTextAnnotation.text;
+
+  canvas.classList.remove("scribble-active");
 });

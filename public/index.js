@@ -1,34 +1,42 @@
-const toggle = document.getElementById("toggle");
 const pencilMode = document.getElementById("pencil-mode");
 const keyboardMode = document.getElementById("keyboard-mode");
+
+const toggle = document.getElementById("toggle");
 const doneBtn = document.getElementById("done-btn");
 const searchInput = document.getElementById("search");
 
-const canvas = document.querySelector("#scribble-area");
-const scribble = new Atrament(canvas, {
+const scribbleArea = document.getElementById("scribble-area");
+
+const canvas = new Atrament(scribbleArea.querySelector('canvas'), {
   width: 800,
   height: 300,
   color: "#4D38B9",
 });
 
-toggle.addEventListener("change", (e) => {
-  if (e.target.checked) {
+const markAsActive = (mode) => {
+  if (mode === 'pencil') {
     pencilMode.classList.add("active");
     keyboardMode.classList.remove("active");
 
-    canvas.classList.add("scribble-active");
-    doneBtn.classList.add("scribble-active");
+    scribbleArea.classList.add("scribble-active");
   } else {
     keyboardMode.classList.add("active");
     pencilMode.classList.remove("active");
 
-    canvas.classList.remove("scribble-active");
-    doneBtn.classList.remove("scribble-active");
+    scribbleArea.classList.remove("scribble-active");
+  }
+}
+
+toggle.addEventListener("change", (e) => {
+  if (e.target.checked) {
+    markAsActive('pencil')
+  } else {
+    markAsActive('keyboard')
   }
 });
 
 doneBtn.addEventListener("click", async () => {
-  const imageData = scribble.toImage();
+  const imageData = canvas.toImage();
 
   const response = await fetch("/api/search", {
     method: "POST",
@@ -43,6 +51,9 @@ doneBtn.addEventListener("click", async () => {
   const data = await response.json();
 
   searchInput.value = data.responses[0].fullTextAnnotation.text;
+  
+  canvas.clear();
 
-  canvas.classList.remove("scribble-active");
+  toggle.checked = false;
+  markAsActive('keyboard');
 });
